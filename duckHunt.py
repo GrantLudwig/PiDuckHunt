@@ -17,8 +17,9 @@ import random
 import math
 import time
 
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
+SCREEN_WIDTH = 480
+SCREEN_HEIGHT = 640
+PLAY_HEIGHT = 480
 
 kill = False
 
@@ -46,7 +47,7 @@ def getXPosition():
 
 def getYPosition():
     global chan2
-    return round(chan2.voltage/3.3 * SCREEN_HEIGHT)
+    return round(chan2.voltage/3.3 * PLAY_HEIGHT)
     
 def spawnTarget():
     global target
