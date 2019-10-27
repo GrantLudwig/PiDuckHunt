@@ -113,6 +113,8 @@ def main():
     end = time.time() + 30
     deathTime = 0
     playing = True
+    xVel = 5
+    yVel = 5
     while(playing):
         timeLeft = round(end - time.time(), 2)
         if timeLeft <= 0:
@@ -144,6 +146,23 @@ def main():
             
             aim.draw(win)
             innerAim.draw(win)
+            
+            targetLocation = target.getCenter()
+            if targetLocation.x >= 480 - 10:
+                xVel = -abs(xVel)
+                changed = True
+            elif targetLocation.x <= 10:
+                xVel = abs(xVel)
+                changed = True
+
+            if targetLocation.y >= 640 - 10:
+                yVel = -abs(yVel)
+                changed = True
+            elif targetLocation.y <= heightDifference + 10:
+                yVel = abs(yVel)
+                changed = True
+                
+            target.move(xVel, yVel)
             
             if (deathTime - time.time()) < 0:
                 try:
