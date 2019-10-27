@@ -21,6 +21,9 @@ SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 640
 PLAY_HEIGHT = 480
 
+screenCenterPoint = Point(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+playCenterPoint = Point(SCREEN_WIDTH / 2, PLAY_HEIGHT / 2 + (SCREEN_HEIGHT - PLAY_HEIGHT))
+
 kill = False
 
 ducks = (   "/home/ludwigg/Python/PyRpi_AS8/blueDuck.png",
@@ -31,8 +34,8 @@ deadDucks = (   "/home/ludwigg/Python/PyRpi_AS8/blueDuckDead.png",
                 "/home/ludwigg/Python/PyRpi_AS8/redDuckDead.png")
 duckIndex = 0
 
-aim = Circle(Point(250, 250), 15)
-innerAim = Circle(Point(250, 250), 5)
+aim = Circle(playCenterPoint, 15)
+innerAim = Circle(playCenterPoint, 5)
 target = Image(Point(0, 0), ducks[duckIndex])
 death = Image(Point(0, 0), deadDucks[duckIndex])
 message = Text(Point(100, 100), "")
@@ -47,7 +50,7 @@ def getXPosition():
 
 def getYPosition():
     global chan2
-    return round(chan2.voltage/3.3 * PLAY_HEIGHT)
+    return round(chan2.voltage/3.3 * SCREEN_HEIGHT - (SCREEN_HEIGHT - PLAY_HEIGHT))
     
 def spawnTarget():
     global target
@@ -60,7 +63,7 @@ def spawnTarget():
     while not found:
         target = Image(Point(random.randint(20, SCREEN_WIDTH - 20), random.randint(20, SCREEN_HEIGHT - 20)), ducks[duckIndex])
         targetCenter = target.getAnchor()
-        if math.sqrt((250 - targetCenter.x)**2 + (250 - targetCenter.y)**2) <= (260):
+        if math.sqrt((playCenterPoint.x - targetCenter.x)**2 + (playCenterPoint.y - targetCenter.y)**2) <= (260):
             found = True
     kill = False
     target.draw(win)
@@ -103,7 +106,7 @@ def main():
     aim.draw(win)
     innerAim.draw(win)
     
-    dog = Image(Point(250,250), "/home/ludwigg/Python/PyRpi_AS8/dog.png")
+    dog = Image(playCenterPoint, "/home/ludwigg/Python/PyRpi_AS8/dog.png")
     
     end = time.time() + 30
     deathTime = 0
