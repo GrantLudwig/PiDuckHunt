@@ -150,17 +150,13 @@ def main():
             targetLocation = target.getCenter()
             if targetLocation.x >= 480 - 10:
                 xVel = -abs(xVel)
-                changed = True
             elif targetLocation.x <= 10:
                 xVel = abs(xVel)
-                changed = True
 
             if targetLocation.y >= 640 - 10:
                 yVel = -abs(yVel)
-                changed = True
             elif targetLocation.y <= heightDifference + 10:
                 yVel = abs(yVel)
-                changed = True
                 
             target.move(xVel, yVel)
             
