@@ -21,8 +21,10 @@ SCREEN_WIDTH = 480
 SCREEN_HEIGHT = 640
 PLAY_HEIGHT = 480
 
+heightDifference = SCREEN_HEIGHT - PLAY_HEIGHT
+
 screenCenterPoint = Point(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-playCenterPoint = Point(SCREEN_WIDTH / 2, PLAY_HEIGHT / 2 + (SCREEN_HEIGHT - PLAY_HEIGHT))
+playCenterPoint = Point(SCREEN_WIDTH / 2, PLAY_HEIGHT / 2 + heightDifference)
 
 kill = False
 
@@ -50,7 +52,7 @@ def getXPosition():
 
 def getYPosition():
     global chan2
-    return round(chan2.voltage/3.3 * SCREEN_HEIGHT - (SCREEN_HEIGHT - PLAY_HEIGHT))
+    return round((chan2.voltage/3.3 * PLAY_HEIGHT) + heightDifference)
     
 def spawnTarget():
     global target
